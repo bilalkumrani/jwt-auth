@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+  </head>
+  <body>
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Register page</title>
+      </head>
+      <body>
+        <h1>Welcome to Login page</h1>
+
+        <div>
+          <input
+            type="text"
+            placeholder="email"
+            autocomplete="off"
+            id="username"
+          />
+          <input
+            placeholder="password"
+            autocomplete="off"
+            type="text"
+            id="password"
+          />
+          <button id="submit">Submit</button>
+        </div>
+
+        <script>
+          let btn = document.getElementById("submit");
+          btn.addEventListener("click", (e) => {
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+
+            const result = fetch("/api/login", {
+              method: "POST",
+              body: JSON.stringify({
+                username,
+                password,
+              }),
+              headers: {
+                "Content-type": "application/json",
+              },
+            })
+              .then((res) => res.json())
+              .then((response) => localStorage.setItem("token", response.data));
+          });
+        </script>
+      </body>
+    </html>
+  </body>
+</html>
